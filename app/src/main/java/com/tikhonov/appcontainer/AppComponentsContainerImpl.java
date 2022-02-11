@@ -86,14 +86,14 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     }
 
     private void fillComponentStore(Object config, List<Method> methods) {
-        methods.forEach(method -> {
+        for (Method method : methods) {
             final String componentName = method.getDeclaredAnnotation(AppComponent.class).name();
             final Object[] args = getArguments(method);
             final Object result = invokeMethod(config, method, args);
 
             appComponents.add(result);
             appComponentsByName.put(componentName, result);
-        });
+        }
     }
 
     private Object[] getArguments(Method method) {
